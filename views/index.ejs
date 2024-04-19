@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Document</title>
+    <style>
+        div {
+            margin: 0 auto;
+            margin-top: 50px;
+            width: 60%;
+            padding: 20px;
+        }
+
+        .divform {
+            margin: 0 auto;
+            margin-top: 50px;
+            width: 50%;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+
+        .input {
+            width: 50%;
+            margin: 10px 10px 10px 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>URL Shortener Usign Node.js and EJS</h1>
+
+    <div class="divform form-group">
+        <h3>Enter Url to Shorten: </h3>
+        <form action="/url" method="POST">
+            <input type="text" class="form-control input" name="url" id="url" placeholder="https://example.com">
+            <button type="submit" class="btn btn-outline-dark">Shorten</button>
+        </form>
+    </div>
+    <div>
+        <% if (locals.id) { %>
+            <h3>Shortened URL: </h3>
+            <p>Generated short URL: http://localhost:3000/url/<%= id %>
+            </p>
+            <% } %>
+    </div>
+    <div>
+        <% if (locals.urls) { %>
+            <table class="table table-dark table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Sr.no</th>
+                        <th>Original URL</th>
+                        <th>Shortened URL</th>
+                        <th>Clicks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% urls.forEach((item, index)=> { %>
+                        <tr>
+                            <td>
+                                <%= index + 1 %>
+                            </td>
+                            <td>
+                                <%= item.redirected_url %>
+                            </td>
+                            <td><a href="http://localhost:3000/url/<%= item.short_id %>">http://localhost:3000/url/<%=
+                                        item.short_id %></a></td>
+                            <td>
+                                <%= item.visits.length %>
+                            </td>
+                        </tr>
+                        <% }) %>
+                </tbody>
+            </table>
+            <% } %>
+    </div>
+
+</body>
+
+</html>
